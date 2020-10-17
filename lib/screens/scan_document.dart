@@ -45,6 +45,16 @@ class _ScanDocumentState extends State<ScanDocument> {
     setState(() {});
   }
 
+  Future createImageFromGallery() async {
+    File image = await fileOperations.openGallery();
+    if (image != null) {
+      Cropper cropper = Cropper();
+      var imageFile = await cropper.cropImage(image);
+      if (imageFile != null) imageFiles.add(imageFile);
+    }
+    setState(() {});
+  }
+
   void _reCropImage(index) async {
     Cropper cropper = Cropper();
     var image = await cropper.cropImage(imageFiles[index]);
@@ -356,12 +366,25 @@ class _ScanDocumentState extends State<ScanDocument> {
               ),
             ),
           ),
-          floatingActionButton: FloatingActionButton(
-            backgroundColor: secondaryColor,
-            onPressed: () async {
-              await createImage();
-            },
-            child: Icon(Icons.camera_alt),
+          floatingActionButton: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              FloatingActionButton(
+                backgroundColor: secondaryColor,
+                onPressed: () async {
+                  await createImage();
+                },
+                child: Icon(Icons.camera_alt),
+              ),
+              SizedBox(height: 8,),
+              FloatingActionButton(
+                backgroundColor: secondaryColor,
+                onPressed: () async {
+                  await createImageFromGallery();
+                },
+                child: Icon(Icons.image),
+              )
+            ],
           ),
         ),
       ),
