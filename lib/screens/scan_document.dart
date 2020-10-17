@@ -370,6 +370,7 @@ class _ScanDocumentState extends State<ScanDocument> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               FloatingActionButton(
+                heroTag: 'cameraOption',
                 backgroundColor: secondaryColor,
                 onPressed: () async {
                   await createImage();
@@ -378,6 +379,7 @@ class _ScanDocumentState extends State<ScanDocument> {
               ),
               SizedBox(height: 8,),
               FloatingActionButton(
+                heroTag: 'galleryOption',
                 backgroundColor: secondaryColor,
                 onPressed: () async {
                   await createImageFromGallery();
